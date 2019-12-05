@@ -6,9 +6,9 @@ import {
     StyleSheet
 } from 'react-native'
 
-const ColorButton = ({backgroundColor, onSelect=(defaultVal)=>defaultVal}) => (
+const ColorButton = ({backgroundColor, position, onSelect=(defaultVal)=>defaultVal}) => (
   <TouchableHighlight style={styles.button}
-    onPress={() => onSelect(backgroundColor)}
+    onPress={() => onSelect(backgroundColor, position)}
     underlayColor="orange">
       <View style={styles.row}>
         <View style={[styles.sample,{backgroundColor}]}/>

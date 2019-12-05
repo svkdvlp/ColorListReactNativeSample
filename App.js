@@ -1,52 +1,45 @@
 import React from 'react'
 import {
-  ScrollView,
+  FlatList,
   StyleSheet,
+  ToastAndroid
 } from 'react-native'
 
 import ColorButton from './components/ColorButton'
+import ListHeader from './components/ListHeader'
+import { DATA } from './util/AppData'
 
 export default class App extends React.Component {
 
   constructor() {
     super()
+
     this.state = {
+      listData: DATA,
       backgroundColor : '#DDD'
     }
     this.changeColor.bind(this)
   }
 
-  changeColor(backgroundColor){
+  changeColor(backgroundColor, position){
     this.setState({backgroundColor})
+    ToastAndroid.show('Current position is ' + position, ToastAndroid.SHORT);
   }
 
   render() {
-    const { backgroundColor } = this.state
+    const { backgroundColor, listData } = this.state
     return(
-      <ScrollView style={[styles.container,{backgroundColor}]}>
-          <ColorButton backgroundColor="red"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="green"
-              onSelect={(c) => this.changeColor(c)}/>
-          <ColorButton backgroundColor="yellow"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="blue"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="red"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="rgba(255,255,255,0.8)"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="red"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="green"
-              onSelect={(c) => this.changeColor(c)}/>
-          <ColorButton backgroundColor="yellow"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="blue"
-              onSelect={(color) => this.changeColor(color)}/>
-          <ColorButton backgroundColor="red"
-              onSelect={(color) => this.changeColor(color)}/>
-      </ScrollView>
+      <FlatList style={[styles.container,{backgroundColor}]}
+          data={listData}
+          ListHeaderComponent={<ListHeader title='Color List'/>}
+          renderItem={
+            ({ item, index }) =>
+            <ColorButton backgroundColor={item.colorVal}
+                          position={index}
+                          onSelect={(color,position) => this.changeColor(color,position)} />
+          }
+          keyExtractor={item => item.id}
+      />
     )
   }
 }
@@ -54,6 +47,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop : 8
   }
-});
+})
