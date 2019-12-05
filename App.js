@@ -1,11 +1,10 @@
 import React from 'react'
 import {
-  View,
-  Text,
-  StatusBar,
+  ScrollView,
   StyleSheet,
-  Colors
 } from 'react-native'
+
+import ColorButton from './components/ColorButton'
 
 export default class App extends React.Component {
 
@@ -24,51 +23,37 @@ export default class App extends React.Component {
   render() {
     const { backgroundColor } = this.state
     return(
-      <View style={[styles.container,{backgroundColor}]}>
-        <Text style={styles.button}
-          onPress = {() => this.changeColor('red')}>Red</Text>
-        <Text style={styles.button}
-          onPress = {() => this.changeColor('green')}>Green</Text>
-        <View style={styles.row}>
-          <View style={styles.sample}/>
-          <Text style={styles.text}>Yellow</Text>
-        </View>
-      </View>
+      <ScrollView style={[styles.container,{backgroundColor}]}>
+          <ColorButton backgroundColor="red"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="green"
+              onSelect={(c) => this.changeColor(c)}/>
+          <ColorButton backgroundColor="yellow"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="blue"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="red"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="rgba(255,255,255,0.8)"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="red"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="green"
+              onSelect={(c) => this.changeColor(c)}/>
+          <ColorButton backgroundColor="yellow"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="blue"
+              onSelect={(color) => this.changeColor(color)}/>
+          <ColorButton backgroundColor="red"
+              onSelect={(color) => this.changeColor(color)}/>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  button: {
-    fontSize: 20,
-    borderWidth : 2,
-    padding: 12,
-    margin: 8,
-    borderRadius: 10,
-    color: 'black',
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  sample: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    backgroundColor: 'white',
-    margin: 5
-  },
-  text: {
-    fontSize : 20,
-    color: 'black',
-    margin: 5
+    paddingTop : 8
   }
 });
